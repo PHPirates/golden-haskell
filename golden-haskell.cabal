@@ -3,7 +3,7 @@ version:             0.1.0.0
 -- synopsis:
 -- description:
 homepage:            https://github.com/PHPirates/golden-haskell#readme
-license:             BSD3
+license:             ISC
 license-file:        LICENSE
 author:              Thomas Schouten
 maintainer:          k3l1n6i2y5k7d1e3@deltadak.slack.com
@@ -33,8 +33,8 @@ test-suite golden-haskell-test
   main-is:             Spec.hs
   build-depends:       base
                      , golden-haskell
-                     , hspec
-                     , QuickCheck
+                     , tasty-hunit
+                     , tasty
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   default-language:    Haskell2010
 
