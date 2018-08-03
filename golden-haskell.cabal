@@ -30,7 +30,7 @@ executable golden-haskell
 test-suite golden-haskell-test
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
-  main-is:             Spec.hs
+  main-is:             Test.hs
   build-depends:       base
                      , golden-haskell
                      , tasty-hunit
