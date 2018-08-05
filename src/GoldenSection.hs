@@ -13,22 +13,22 @@ invphi2 = (3 - sqrt 5) / 2
 (//) = flip fromMaybe
 
 -- | Golden section search, recursive.
--- Given a function f with a single local minimum in the interval [a, b], golden section search returns a subset interval [c, d] that contains the minimum with d-c <= tolerance
+-- Given a function f with a single local maximum in the interval [a, b], golden section search returns a subset interval [c, d] that contains the maximum with d-c <= tolerance
 goldenSectionSearch ::
-    (Float -> Float) -- ^ Function with a single minimum in [a, b]
+    (Float -> Float) -- ^ Function with a single maximum in [a, b]
     -> Float -- ^ One side of the interval
     -> Float -- ^ Other side of the interval
     -> Float -- ^ Tolerance
-    -> (Float, Float) -- ^ The interval in which the minimum is
+    -> (Float, Float) -- ^ The interval in which the maximum is
 
 -- Just a wrapper function because of all the ugly Nothing's of the recursive function
 goldenSectionSearch f a b tolerance = goldenSectionSearchRecursive f a b tolerance Nothing Nothing Nothing Nothing Nothing
 
 -- | Golden section search, recursive.
--- Given a function f with a single local minimum in the interval [a, b], golden section search returns a subset interval [c, d] that contains the minimum with d-c <= tolerance
+-- Given a function f with a single local maximum in the interval [a, b], golden section search returns a subset interval [c, d] that contains the maximum with d-c <= tolerance
 -- Taken from the python implementation at https://en.wikipedia.org/wiki/Golden-section_search
 goldenSectionSearchRecursive ::
-    (Float -> Float) -- ^ Function with a single minimum in [a, b]
+    (Float -> Float) -- ^ Function with a single maximum in [a, b]
     -> Float -- ^ One side of the interval
     -> Float -- ^ Other side of the interval
     -> Float -- ^ Tolerance
@@ -37,12 +37,12 @@ goldenSectionSearchRecursive ::
     -> Maybe Float -- ^ d, New right interval point.
     -> Maybe Float -- ^ f(c), Function value at c
     -> Maybe Float -- ^ f(d), Function value at d
-    -> (Float, Float) -- ^ The interval in which the minimum is
+    -> (Float, Float) -- ^ The interval in which the maximum is
 
 --goldenSectionSearchRecursive f a' b' tolerance h' c' d' fc' fd' | trace ("myfun a=" ++ show a' ++ " b=" ++ show b' ++ " h=" ++ show h' ++ " c=" ++ show c' ++ " d=" ++ show d' ++ " fc=" ++ show fc' ++ " fd=" ++ show fd') False = undefined
 goldenSectionSearchRecursive f a' b' tolerance h' c' d' fc' fd'
     | h < tolerance = (a, b)
-    | fc < fd = goldenSectionSearchRecursive f a d tolerance (Just (h * invphi)) Nothing (Just c) Nothing (Just fc)
+    | fc > fd = goldenSectionSearchRecursive f a d tolerance (Just (h * invphi)) Nothing (Just c) Nothing (Just fc)
     | otherwise = goldenSectionSearchRecursive f c b tolerance (Just (h * invphi)) (Just d) Nothing (Just fd) Nothing
     where
         a = min a' b'
