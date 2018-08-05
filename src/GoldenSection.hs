@@ -1,7 +1,7 @@
 module GoldenSection (goldenSectionSearch) where
 
 import Data.Maybe (fromMaybe)
-import Debug.Trace (trace)
+--import Debug.Trace (trace)
 
 -- 1 / phi
 invphi = (sqrt 5 - 1) / 2
@@ -39,7 +39,7 @@ goldenSectionSearchRecursive ::
     -> Maybe Float -- ^ f(d), Function value at d
     -> (Float, Float) -- ^ The interval in which the minimum is
 
-goldenSectionSearchRecursive f a' b' tolerance h' c' d' fc' fd' | trace ("myfun a=" ++ show a' ++ " b=" ++ show b' ++ " h=" ++ show h' ++ " c=" ++ show c' ++ " d=" ++ show d' ++ " fc=" ++ show fc' ++ " fd=" ++ show fd') False = undefined
+--goldenSectionSearchRecursive f a' b' tolerance h' c' d' fc' fd' | trace ("myfun a=" ++ show a' ++ " b=" ++ show b' ++ " h=" ++ show h' ++ " c=" ++ show c' ++ " d=" ++ show d' ++ " fc=" ++ show fc' ++ " fd=" ++ show fd') False = undefined
 goldenSectionSearchRecursive f a' b' tolerance h' c' d' fc' fd'
     | h < tolerance = (a, b)
     | fc < fd = goldenSectionSearchRecursive f a d tolerance (Just (h * invphi)) Nothing (Just c) Nothing (Just fc)
@@ -48,7 +48,7 @@ goldenSectionSearchRecursive f a' b' tolerance h' c' d' fc' fd'
         a = min a' b'
         b = max a' b'
         h = h' // (b - a)
-        c = c' // a + invphi2 * h
-        d = d' // a + invphi * h
+        c = c' // (a + invphi2 * h)
+        d = d' // (a + invphi * h)
         fc = fc' // f c
         fd = fd' // f d
