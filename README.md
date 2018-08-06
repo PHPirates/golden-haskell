@@ -11,7 +11,24 @@ Interesting about this method is that the convergence rate is exactly known: on 
 
 ## Usage
 
+1. Add to your `stack.yaml`
+    ```yaml
+    extra-deps:
+    - github: PHPirates/golden-haskell
+      commit: "ff69e9d"
+    ```
+    If after step 2 you get an error, you can try the older syntax
+    ```yaml
+    extra-deps:
+    - git: git@github.com:PHPirates/golden-haskell.git
+      commit: "ff69e9d"
+    ```
+2. Add in the appropriate section in your `.cabal` file to `build-depends` the dependency `golden-haskell`.
+
+3. Use with
 ```haskell
+import GoldenSection (goldenSectionSearch)
+
 -- Function to optimize
 f = \x -> -(x-2)^2
 -- Find the maximum in [a, b]
